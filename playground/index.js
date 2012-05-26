@@ -1,1 +1,1 @@
-dump('\n\nworks\n\n');
+importScripts('mocha.js');

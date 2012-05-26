@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Determine current location
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+
+IMPORT_DIR=`dirname $1`
+IMPORT_FILENAME=`echo $1 | sed s:$IMPORT_DIR/::`
+
+IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
+IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
+
+CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
+CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
+CONFIG="$CONFIG const _ARGV=\"$@\";"
+CONFIG="$CONFIG const _ROOT='$DIR/';"
+
+
+xpcshell -e "$CONFIG" -f $DIR/bin/loader.js
