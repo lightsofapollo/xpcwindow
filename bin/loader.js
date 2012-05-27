@@ -18,6 +18,8 @@ function importLib(file) {
 importLib('timers.js');
 importLib('import-scripts.js');
 importLib('console.js');
+importLib('window.js');
+importLib('event-loop.js');
 
 mozIJSSubScriptLoader.loadSubScript(
   'file://' + _IMPORT_FILE,
