@@ -20,4 +20,20 @@ CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
 CONFIG="$CONFIG const _ARGV=\"$ARGS\";"
 CONFIG="$CONFIG const _ROOT='$ROOT/';"
 
-xpcshell -e "$CONFIG" -f $ROOT/lib/loader.js
+which run-mozilla.sh 2>&1 1> /dev/null
+
+if [ "$?" != "0" ]
+then
+  echo "You must have run-mozilla.sh in your path."
+  exit 1
+fi
+
+which xpcshell 2>&1 1> /dev/null
+
+if [ "$?" != "0" ]
+then
+  echo "You must have xpcshell in your path."
+  exit 1
+fi
+
+`which run-mozilla.sh` `which xpcshell` -w -e "$CONFIG" -f $ROOT/lib/loader.js
