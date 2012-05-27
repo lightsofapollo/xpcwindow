@@ -8,7 +8,7 @@ mocha.setup({
 importScripts('test.js');
 
 var end = mocha.run(function() {
-  window.eventLoop.stop();
+  window.xpcEventLoop.stop();
 });
 
-window.eventLoop.start();
+window.xpcEventLoop.start();

@@ -5,16 +5,19 @@ SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
 DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
 
+ROOT=`dirname $DIR`
+
 IMPORT_DIR=`dirname $1`
 IMPORT_FILENAME=`echo $1 | sed s:$IMPORT_DIR/::`
 
 IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
 IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
 
+ARGS=`echo $@ | sed s:^$1::`
+
 CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
 CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
-CONFIG="$CONFIG const _ARGV=\"$@\";"
-CONFIG="$CONFIG const _ROOT='$DIR/';"
+CONFIG="$CONFIG const _ARGV=\"$ARGS\";"
+CONFIG="$CONFIG const _ROOT='$ROOT/';"
 
-
-xpcshell -e "$CONFIG" -f $DIR/bin/loader.js
+xpcshell -e "$CONFIG" -f $ROOT/lib/loader.js
