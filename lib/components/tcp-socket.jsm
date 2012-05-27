@@ -270,19 +270,10 @@ TCPSocket.prototype = {
   },
 
   onStopRequest: function ts_onStopRequest(request, context, status) {
-    dump('\nSTOP' + JSON.stringify(status) + '\n');
     this.readyState = CLOSED;
     this._request = null;
 
     if (status) {
-      var key;
-
-      for (key in Ci.nsISocketTransport) {
-        if(status === Ci.nsISocketTransport[key]) {
-          dump(key + '\n');
-        }
-      }
-
       this.dispatchEvent('error', 'Error ' + status);
     }
 

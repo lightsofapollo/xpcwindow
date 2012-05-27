@@ -11,6 +11,7 @@ describe('tcp socket', function() {
   });
 
   describe('initialize', function() {
+
     it('should work under xpcom', function(done) {
       subject = new MozTCPSocket('localhost', 80, {
         verifyCert: false
