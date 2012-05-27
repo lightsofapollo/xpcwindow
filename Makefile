@@ -9,5 +9,6 @@ test:
 	# test paths are relative
 	# to test/ not to /
 	./bin/xpcwindow test/index.js \
+		tcp-socket-test.js \
 		timer-test.js \
 		xhr-test.js
