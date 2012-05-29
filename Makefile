@@ -11,4 +11,5 @@ test:
 	./bin/xpcwindow test/index.js \
 		tcp-socket-test.js \
 		timer-test.js \
-		xhr-test.js
+		xhr-test.js \
+		import-scripts-test.js
