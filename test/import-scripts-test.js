@@ -1,7 +1,7 @@
 //prevent the global spams
 window.RandomFile = false;
 
-describe('#importScripts', function() {
+describe('window.importScripts', function() {
 
   beforeEach(function() {
     window.RandomFile = false;
