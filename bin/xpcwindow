@@ -2,8 +2,14 @@
 
 # Determine current location
 SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
-DIR="$( cd -P "$( dirname "$SOURCE" )" && pwd )"
+if [ -h "$SOURCE" ];
+then
+  ORIG_SOURCE=$SOURCE;
+  while [ -h "$SOURCE" ] ; do SOURCE="$(readlink "$SOURCE")"; done
+  DIR="$( cd "$(dirname $ORIG_SOURCE)" && cd -P "$( dirname "$SOURCE" )" && pwd )"
+else
+  DIR="$( cd "$( dirname "$SOURCE" )" && pwd )"
+fi
 
 ROOT=`dirname $DIR`
 
