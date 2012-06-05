@@ -12,4 +12,5 @@ test:
 		tcp-socket-test.js \
 		timer-test.js \
 		xhr-test.js \
-		import-scripts-test.js
+		import-scripts-test.js \
+		xpc-error-test.js
