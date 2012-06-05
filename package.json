@@ -1,6 +1,6 @@
 {
   "name": "xpcwindow",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "author": "James Lal <jlal@mozilla.com>",
   "description": "xpcshell wrapper that provides 'window' shims to run browser code in xpcom. (WARN: Does not use node)",
   "main": "lib/node/index.js",
