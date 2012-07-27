@@ -1,3 +1,4 @@
+
 /* This Source Code Form is subject to the terms of the Mozilla Public
  * License, v. 2.0. If a copy of the MPL was not distributed with this file,
  * You can obtain one at http://mozilla.org/MPL/2.0/. */
@@ -10,7 +11,6 @@ const Cu = Components.utils;
 const Cr = Components.results;
 const CC = Components.Constructor;
 
-Cu.import('resource://xpcwindow/lib/components/event-emitter.jsm');
 Cu.import("resource://gre/modules/XPCOMUtils.jsm");
 Cu.import("resource://gre/modules/Services.jsm");
 
@@ -85,17 +85,10 @@ function TCPSocket() {
   this.host = "";
   this.port = 0;
   this.ssl = false;
-
-
-  EventEmitter.call(this);
-
-  this.open.apply(this, arguments);
 };
 
 
 TCPSocket.prototype = {
-  __proto__: EventEmitter.prototype,
-
   // Constants
   CONNECTING: kCONNECTING,
   OPEN: kOPEN,
@@ -168,9 +161,10 @@ TCPSocket.prototype = {
   },
 
   callListener: function ts_callListener(type, data) {
-    type = type.replace(/^on/, '');
-    this.dispatchEvent(type, new TCPSocketEvent(type, this, data || ""));
+    if (!this[type])
+      return;
 
+    this[type].call(null, new TCPSocketEvent(type, this, data || ""));
   },
 
   get bufferedAmount() {
@@ -194,7 +188,7 @@ TCPSocket.prototype = {
     if (this._hasPrivileges !== true && this._hasPrivileges !== null) {
       throw new Error("TCPSocket does not have permission in this context.\n");
     }
-    let that = this; 
+    let that = new TCPSocket();
 
     LOG("startup called\n");
     LOG("Host info: " + host + ":" + port + "\n");
