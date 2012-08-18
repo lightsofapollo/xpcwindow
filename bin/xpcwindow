@@ -13,33 +13,75 @@ fi
 
 ROOT=`dirname $DIR`
 
-IMPORT_DIR=`dirname $1`
-IMPORT_FILENAME=`echo $1 | sed s:$IMPORT_DIR/::`
+install_xulrunner() {
+  make -C $ROOT install-xulrunner-sdk
+}
 
-IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
-IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
+show_help() {
+  echo "xpcwindow is a wrapper around xulrunner to"
+  echo "allow eaiser use of browser & node scripts via xpcshell."
+  echo "You must have xpcshell installed to use this script"
+  echo
+  echo "Usage:"
+  echo "   xpcwindow myscript.js"
+  echo
+  echo "Switches: (you may only use one)"
+  echo "   --help Show this help screen"
+  echo "   --install-xulrunner install a xpchsell via xulrunner-sdk"
+}
 
-ARGS=`echo $@ | sed s:^$1::`
+execute_script() {
+  XULRUNNER_INSTALL="You can install it using xpcwindow --install-xulrunner"
 
-CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
-CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
-CONFIG="$CONFIG const _ARGV=\"$ARGS\";"
-CONFIG="$CONFIG const _ROOT='$ROOT/';"
+  which run-mozilla.sh 2>&1 1> /dev/null
+  if [ "$?" != "0" ]
+  then
+    if [ -d $ROOT/xulrunner-sdk ]
+    then
+      PATH=$PATH:/$ROOT/xulrunner-sdk/bin/
+    else
+      echo "You must have run-mozilla.sh in your path. $XULRUNNER_INSTALL"
+      exit 1
+    fi
+  fi
 
-which run-mozilla.sh 2>&1 1> /dev/null
+  which xpcshell 2>&1 1> /dev/null
+  if [ "$?" != "0" ]
+  then
+    echo "You must have xpcshell in your path. $XULRUNNER_INSTALL"
+    exit 1
+  fi
 
-if [ "$?" != "0" ]
-then
-  echo "You must have run-mozilla.sh in your path."
-  exit 1
-fi
+  IMPORT_DIR=`dirname $1`
+  IMPORT_FILENAME=`echo $1 | sed s:$IMPORT_DIR/::`
 
-which xpcshell 2>&1 1> /dev/null
+  IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
+  IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
 
-if [ "$?" != "0" ]
-then
-  echo "You must have xpcshell in your path."
-  exit 1
-fi
+  ARGS=`echo $@ | sed s:^$1::`
 
-`which run-mozilla.sh` `which xpcshell` -w -e "$CONFIG" -f $ROOT/lib/loader.js
+  CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
+  CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
+  CONFIG="$CONFIG const _ARGV=\"$ARGS\";"
+  CONFIG="$CONFIG const _ROOT='$ROOT/';"
+
+  `which run-mozilla.sh` `which xpcshell` -w -e "$CONFIG" -f $ROOT/lib/loader.js
+}
+
+case "$1" in
+"")
+  show_help
+  ;;
+"--help")
+  show_help
+  ;;
+
+"--install-xulrunner")
+  install_xulrunner
+  ;;
+
+*)
+  execute_script $@
+  ;;
+
+esac
