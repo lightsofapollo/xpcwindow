@@ -1,10 +1,6 @@
-describe("xhr", function() {
+describe('xhr', function() {
 
   it('should work', function(done) {
-    var Cc = Components.classes,
-        Ci = Components.interfaces,
-        XMLHttpRequest = Components.Constructor("@mozilla.org/xmlextras/xmlhttprequest;1");
-
     var xhr = new XMLHttpRequest();
 
     xhr.open('GET', 'http://google.com', true);
