@@ -7,6 +7,8 @@ describe('tcp socket', function() {
     it('should work under xpcom', function(done) {
       this.timeout(5000);
 
+			expect(window.navigator.mozTCPSocket).to.be.ok();
+
       subject = window.TCPSocket.open('localhost', 80, {
         verifyCert: false
       });
