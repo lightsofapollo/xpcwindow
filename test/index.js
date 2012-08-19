@@ -8,7 +8,15 @@ mocha.setup({
   reporter: mocha.reporters.Spec
 });
 
-importScripts.apply(this, window.xpcArgv);
+var IS_TEST = /^test\//;
+var files = window.xpcArgv.map(function(file) {
+  if (IS_TEST.test(file)) {
+    return file.replace(IS_TEST, '');
+  }
+  return file;
+});
+
+importScripts.apply(this, files);
 
 //Hack to format errors
 mocha.reporters.Base.list = function(failures) {
