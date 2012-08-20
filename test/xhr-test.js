@@ -9,6 +9,7 @@ describe('xhr', function() {
     xhr.onreadystatechange = function() {
       if (xhr.readyState === 4) {
         if (xhr.status === 200) {
+          expect(xhr.responseText).to.be('local file');
           done();
         } else {
           done(new Error('xhr failed'));
