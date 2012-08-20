@@ -1,6 +1,20 @@
 describe('modules/fs', function() {
   var fs = window.xpcModule.require('fs');
 
+  describe('remove', function() {
+    var fileName = __dirname + '/../fixtures/deleted.js';
+
+    describe('#unlinkSync', function() {
+      it('should remove a file', function() {
+        fs.writeFileSync(fileName, 'foo');
+        fs.unlinkSync(fileName);
+        expect(function() {
+          fs.readFileSync(fileName);
+        }).to.throwError();
+      });
+    });
+  });
+
   describe('read', function() {
     var fileName = __dirname + '/../fixtures/file.js';
     var expected = 'local file';
