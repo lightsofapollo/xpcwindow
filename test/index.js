@@ -1,3 +1,4 @@
+
 importScripts('vendor/mocha.js');
 importScripts('vendor/expect.js');
 
@@ -9,7 +10,7 @@ mocha.setup({
 });
 
 var IS_TEST = /^test\//;
-var files = window.xpcArgv.map(function(file) {
+var files = window.xpcArgv.slice(2).map(function(file) {
   if (IS_TEST.test(file)) {
     return file.replace(IS_TEST, '');
   }
@@ -25,4 +26,3 @@ var end = mocha.run(function() {
 });
 
 window.xpcEventLoop.start();
-

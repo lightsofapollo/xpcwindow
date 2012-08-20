@@ -58,12 +58,11 @@ execute_script() {
 
   IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
   IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
-
-  ARGS="$ABS_BIN $@"
+  ARG_LIST="$ABS_BIN $@"
 
   CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
   CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
-  CONFIG="$CONFIG const _ARGV=\"$ARGS\";"
+  CONFIG="$CONFIG const _ARGV=\"$ARG_LIST\";"
   CONFIG="$CONFIG const _ROOT='$ROOT/';"
 
   `which run-mozilla.sh` `which xpcshell` -w -e "$CONFIG" -f $ROOT/lib/loader.js
