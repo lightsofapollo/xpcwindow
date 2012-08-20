@@ -2,8 +2,22 @@ describe('window.xpcModule', function() {
   var require = window.xpcModule.require;
   var subject;
 
-  describe('built ins', function() {
+  describe('built in mocha', function() {
+    var mocha;
+
+    beforeEach(function() {
+      mocha = require('mocha-formatting');
+    });
+
+    it('should load mocha', function() {
+      expect(mocha).to.be.ok();
+      expect(mocha.enhance).to.be.ok();
+    });
+  });
+
+  describe('built in path', function() {
     var path;
+
     beforeEach(function() {
       path = require('path');
     });
