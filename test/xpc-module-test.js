@@ -93,26 +93,42 @@ describe('window.xpcModule', function() {
   describe('#require', function() {
     var fsPath = require('path');
 
-    beforeEach(function() {
-      subject = require('./fixtures/test-mod.js');
+
+    describe('.json', function() {
+      beforeEach(function() {
+        subject = require('./fixtures/file.json');
+      });
+
+      it('should load & parse json file', function() {
+        expect(subject).to.eql({
+          json: true
+        });
+      });
+
     });
 
-    it('should define __dirname', function() {
-      var root = fsPath.resolve('./fixtures/');
-      expect(subject.__dirname).to.be(root);
-      expect(subject.__filename).to.contain('fixtures/test-mod.js');
-    });
+    describe('.js', function() {
+      beforeEach(function() {
+        subject = require('./fixtures/test-mod.js');
+      });
 
-    it('should not polute global scope', function() {
-      expect(window.globalContextDirty).not.to.be.ok();
-    });
+      it('should define __dirname', function() {
+        var root = fsPath.resolve('./fixtures/');
+        expect(subject.__dirname).to.be(root);
+        expect(subject.__filename).to.contain('fixtures/test-mod.js');
+      });
 
-    it('should load module', function() {
-      expect(subject).to.be.ok();
-    });
+      it('should not polute global scope', function() {
+        expect(window.globalContextDirty).not.to.be.ok();
+      });
 
-    it('should be the same object when required twice', function() {
-      expect(subject).to.be(require('./fixtures/test-mod.js'));
+      it('should load module', function() {
+        expect(subject).to.be.ok();
+      });
+
+      it('should be the same object when required twice', function() {
+        expect(subject).to.be(require('./fixtures/test-mod.js'));
+      });
     });
 
   });
