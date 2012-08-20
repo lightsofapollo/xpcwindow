@@ -14,4 +14,23 @@ describe('modules/fs', function() {
 
   });
 
+  describe('write', function() {
+    var file = __dirname + '/../fixtures/write-me.js';
+
+    describe('writeFileSync', function() {
+      it('should be able to write to files', function() {
+        //var start = result = fs.readFileSync(file);
+        var write = Date.now().toString();
+        fs.writeFileSync(file, write);
+        expect(fs.readFileSync(file), write);
+      });
+
+      afterEach(function() {
+        fs.writeFileSync(file, '');
+      });
+
+    });
+
+  });
+
 });
