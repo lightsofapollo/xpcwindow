@@ -20,9 +20,9 @@ describe('timers', function() {
       var start = Date.now();
       setTimeout(function() {
         var diff = Date.now() - start;
-        expect(diff).to.be.above(400);
+        expect(diff).to.be.above(40);
         done();
-      }, 500);
+      }, 50);
     });
   });
 
@@ -30,11 +30,11 @@ describe('timers', function() {
     it('should clear a timeout', function(done) {
       setTimeout(function() {
         done();
-      }, 400);
+      }, 50);
 
       var id = setTimeout(function(){
         done(new Error('Timeout was not cleared'));
-      }, 250);
+      }, 150);
 
       clearTimeout(id);
     });

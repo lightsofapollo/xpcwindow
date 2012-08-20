@@ -2,7 +2,39 @@ describe('window.xpcModule', function() {
   var require = window.xpcModule.require;
   var subject;
 
-  describe('built in mocha', function() {
+  describe('events', function() {
+    var EventEmitter;
+
+    beforeEach(function() {
+      EventEmitter = require('events').EventEmitter;
+    });
+
+    it('should emit events', function(done) {
+      var obj = {};
+      var event = new EventEmitter();
+      event.on('test', function(arg) {
+        expect(arg).to.be(obj);
+        done();
+      });
+
+      event.emit('test', obj);
+    });
+
+  });
+
+  describe('built in env:', function() {
+    var env;
+
+    beforeEach(function() {
+      env = require('env');
+    });
+
+    it('should get environment variables', function() {
+      expect(env.get).to.be.ok();
+    });
+  });
+
+  describe('built in: mocha', function() {
     var mocha;
 
     beforeEach(function() {
@@ -15,7 +47,7 @@ describe('window.xpcModule', function() {
     });
   });
 
-  describe('built in path', function() {
+  describe('built in: path', function() {
     var path;
 
     beforeEach(function() {
