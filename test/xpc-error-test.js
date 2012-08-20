@@ -8,7 +8,7 @@ describe('window.xpcError', function() {
         throw new Error('!message!');
       }
       failMe();
-    } catch(e) {
+    } catch (e) {
       sample = e;
     }
   });
@@ -22,11 +22,13 @@ describe('window.xpcError', function() {
       );
 
       expect(result).to.contain(
-        '    at failMe (/test/xpc-error-test.js:8)'
+        '    at failMe (/lib/loader.js -> ' +
+        '/lib/window/xpc-module.js -> /test/xpc-error-test.js:8)'
       );
 
       expect(result).to.contain(
-        '    at anon (/test/xpc-error-test.js:10)'
+        '    at anon (/lib/loader.js -> /lib/window/xpc-module.js' +
+        ' -> /test/xpc-error-test.js:10)'
       );
     });
   });

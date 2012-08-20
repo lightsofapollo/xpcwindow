@@ -1,4 +1,3 @@
-
 importScripts('vendor/mocha.js');
 importScripts('vendor/expect.js');
 
@@ -10,14 +9,12 @@ mocha.setup({
 });
 
 var IS_TEST = /^test\//;
-var files = window.xpcArgv.slice(2).map(function(file) {
+var files = window.xpcArgv.slice(2).forEach(function(file) {
   if (IS_TEST.test(file)) {
-    return file.replace(IS_TEST, '');
+    file = file.replace(IS_TEST, '');
   }
-  return file;
+  window.xpcModule.require(file);
 });
-
-importScripts.apply(this, files);
 
 window.xpcModule.require('mocha-formatting').enhance(mocha);
 
