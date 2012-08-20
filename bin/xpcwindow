@@ -11,6 +11,7 @@ else
   DIR="$( cd "$( dirname "$SOURCE" )" && pwd )"
 fi
 
+ABS_BIN=$DIR/xpcwindow
 ROOT=`dirname $DIR`
 
 install_xulrunner() {
@@ -58,7 +59,7 @@ execute_script() {
   IMPORT_ROOT=`cd $IMPORT_DIR; pwd`
   IMPORT_FILE="$IMPORT_ROOT/$IMPORT_FILENAME"
 
-  ARGS=`echo $@ | sed s:^$1::`
+  ARGS="$ABS_BIN $@"
 
   CONFIG=";const _IMPORT_FILE='$IMPORT_FILE';"
   CONFIG="$CONFIG const _IMPORT_ROOT='$IMPORT_ROOT';"
