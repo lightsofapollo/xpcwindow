@@ -1,6 +1,21 @@
 describe('modules/fs', function() {
   var fs = window.xpcModule.require('fs');
 
+  describe('exists', function() {
+    var fileName = __dirname + '/../fixtures/file.js';
+
+    describe('#existsSync', function() {
+      it('should return true when exists', function() {
+        expect(fs.existsSync(fileName)).to.be(true);
+      });
+
+      it('should return false when does not exist', function() {
+        expect(fs.existsSync('/foo/baz/bar')).to.be(false);
+      });
+    });
+
+  });
+
   describe('remove', function() {
     var fileName = __dirname + '/../fixtures/deleted.js';
 
