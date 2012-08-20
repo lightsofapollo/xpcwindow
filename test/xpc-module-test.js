@@ -91,9 +91,16 @@ describe('window.xpcModule', function() {
   });
 
   describe('#require', function() {
+    var fsPath = require('path');
 
     beforeEach(function() {
       subject = require('./fixtures/test-mod.js');
+    });
+
+    it('should define __dirname', function() {
+      var root = fsPath.resolve('./fixtures/');
+      expect(subject.__dirname).to.be(root);
+      expect(subject.__filename).to.contain('fixtures/test-mod.js');
     });
 
     it('should not polute global scope', function() {
