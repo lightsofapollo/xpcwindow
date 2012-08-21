@@ -15,6 +15,7 @@
 
   - error handling when requring/importing files.
   - directly bundling debug module until npm will run
+  - bundlded xpcshell installer code use xpcwindow --install-xulrunner
 
 # 0.2.0
   - Change to use real TCP socket api and use real one when available.
