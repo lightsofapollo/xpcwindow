@@ -14,6 +14,7 @@
   - basic fs module: fs.readFileSync, fs.writeFileSync, fs.unlinkSync
 
   - error handling when requring/importing files.
+  - directly bundling debug module until npm will run
 
 # 0.2.0
   - Change to use real TCP socket api and use real one when available.

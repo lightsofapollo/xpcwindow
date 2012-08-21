@@ -125,7 +125,7 @@ describe('window.xpcModule', function() {
       });
 
       it('should be the same object when required twice', function() {
-        expect(subject).to.be(require(__dirname + '/fixtures/test-mod.js'));
+        expect(subject).to.be(require(__dirname + '/fixtures/test-mod'));
       });
     });
 
