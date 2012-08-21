@@ -1,9 +1,7 @@
 describe('window.xpcModule', function() {
-  var require = window.xpcModule.require;
   var subject;
 
   describe('built in: process', function() {
-    return;
     var process;
 
     beforeEach(function() {
@@ -11,11 +9,11 @@ describe('window.xpcModule', function() {
     });
 
     it('should have exit', function() {
-      assert.equal(process.exit, quit);
+      expect(process.exit).to.be(quit);
     });
 
     it('should have stdout.write', function() {
-      assert.equal(process.stdout.write, dump);
+      expect(process.stdout.write).to.be(dump);
     });
   });
 
@@ -109,7 +107,7 @@ describe('window.xpcModule', function() {
 
     describe('.js', function() {
       beforeEach(function() {
-        subject = require(__dirname + '/fixtures/test-mod.js');
+        subject = require('./fixtures/test-mod.js');
       });
 
       it('should define __dirname', function() {
