@@ -1,6 +1,28 @@
 describe('modules/fs', function() {
   var fs = window.xpcModule.require('fs');
 
+  describe('dir', function() {
+    var fileName = __dirname + '../fixtures/test-dir/';
+
+    function cleanup() {
+      if (fs.existsSync(fileName))
+        fs.rmdirSync(fileName);
+    }
+
+    beforeEach(cleanup);
+    afterEach(cleanup);
+
+    it('should have operations to create & remove dirs', function() {
+      expect(fs.existsSync(fileName)).to.be(false);
+      fs.mkdirSync(fileName, 0655);
+      expect(fs.existsSync(fileName)).to.be(true);
+
+      fs.rmdirSync(fileName);
+      expect(fs.existsSync(fileName)).to.be(false);
+    });
+
+  });
+
   describe('exists', function() {
     var fileName = __dirname + '/../fixtures/file.js';
 
