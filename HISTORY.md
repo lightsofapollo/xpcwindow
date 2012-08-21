@@ -1,3 +1,7 @@
+# 0.4.0
+  - built in mkdirp module
+  - fs.stat, fs.mkdirSync, fs.rmdirSync
+
 # 0.3.0
   - module system based on nodejs allowing xpcwindow
     to run a much greater verity of nodejs scripts.
