@@ -1,3 +1,5 @@
+REPORTER?=Dot
+
 # what OS are we on?
 SYS=$(shell uname -s)
 ARCH?=$(shell uname -m)
@@ -31,7 +33,7 @@ TESTS=`find test -name "*-test.js"`
 test:
 	# test paths are relative
 	# to test/ not to /
-	./bin/xpcwindow test/index.js $(TESTS)
+	./bin/xpcwindow-mocha --reporter $(REPORTER) test/helper.js $(TESTS)
 # The install-xulrunner target arranges to get xulrunner downloaded and sets up
 # some commands for invoking it. But it is platform dependent
 XULRUNNER_SDK_URL=http://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2012/07/2012-07-17-03-05-55-mozilla-central/xulrunner-17.0a1.en-US.

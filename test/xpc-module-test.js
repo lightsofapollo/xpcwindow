@@ -96,7 +96,7 @@ describe('window.xpcModule', function() {
 
     describe('.json', function() {
       beforeEach(function() {
-        subject = require('./fixtures/file.json');
+        subject = require(__dirname + '/fixtures/file.json');
       });
 
       it('should load & parse json file', function() {
@@ -109,11 +109,11 @@ describe('window.xpcModule', function() {
 
     describe('.js', function() {
       beforeEach(function() {
-        subject = require('./fixtures/test-mod.js');
+        subject = require(__dirname + '/fixtures/test-mod.js');
       });
 
       it('should define __dirname', function() {
-        var root = fsPath.resolve('./fixtures/');
+        var root = fsPath.resolve(__dirname, './fixtures/');
         expect(subject.__dirname).to.be(root);
         expect(subject.__filename).to.contain('fixtures/test-mod.js');
       });
@@ -127,7 +127,7 @@ describe('window.xpcModule', function() {
       });
 
       it('should be the same object when required twice', function() {
-        expect(subject).to.be(require('./fixtures/test-mod.js'));
+        expect(subject).to.be(require(__dirname + '/fixtures/test-mod.js'));
       });
     });
 

@@ -3996,9 +3996,6 @@ exports.slug = function(str){
  * the browser.
  */
 
-process = {};
-process.exit = function(status){};
-process.stdout = {};
 global = window;
 
 /**
