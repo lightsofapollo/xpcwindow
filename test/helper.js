@@ -1,2 +1,2 @@
-importScripts(__dirname + '/vendor/expect.js');
+importScripts(__dirname + '/../vendor/expect.js');
 window.expect = window.expect;
