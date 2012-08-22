@@ -26,31 +26,17 @@ show_help() {
   echo "Usage:"
   echo "   xpcwindow myscript.js"
   echo
-  echo "Switches: (you may only use one)"
+  echo "Options:"
   echo "   --help Show this help screen"
-  echo "   --install-xulrunner install a xpchsell via xulrunner-sdk"
 }
 
 execute_script() {
-  XULRUNNER_INSTALL="You can install it using xpcwindow --install-xulrunner"
-
-  which run-mozilla.sh 2>&1 1> /dev/null
-  if [ "$?" != "0" ]
-  then
-    if [ -d $ROOT/xulrunner-sdk ]
-    then
-      PATH=$PATH:/$ROOT/xulrunner-sdk/bin/
-    else
-      echo "You must have run-mozilla.sh in your path. $XULRUNNER_INSTALL"
-      exit 1
-    fi
-  fi
-
   which xpcshell 2>&1 1> /dev/null
+
   if [ "$?" != "0" ]
   then
-    echo "You must have xpcshell in your path. $XULRUNNER_INSTALL"
-    exit 1
+    install_xulrunner
+    PATH=$ROOT/xulrunner-sdk/bin/:$PATH
   fi
 
   IMPORT_DIR=`dirname $1`
@@ -75,11 +61,6 @@ case "$1" in
 "--help")
   show_help
   ;;
-
-"--install-xulrunner")
-  install_xulrunner
-  ;;
-
 *)
   execute_script $@
   ;;

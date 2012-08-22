@@ -25,15 +25,13 @@ endif
 package:
 	rm -f vendor/mocha.js
 	rm -f vendor/expect.js
-	cp node_modules/mocha/mocha.js test/vendor/mocha.js
-	cp node_modules/expect.js/expect.js test/vendor/expect.js
+	cp node_modules/mocha/mocha.js vendor/mocha.js
+	cp node_modules/expect.js/expect.js vendor/expect.js
 
 .PHONY: test
 TESTS=`find test -name "*-test.js"`
 test:
-	# test paths are relative
-	# to test/ not to /
-	./bin/xpcwindow-mocha --reporter $(REPORTER) test/helper.js $(TESTS)
+	@./bin/xpcwindow-mocha --reporter $(REPORTER) test/helper.js $(TESTS)
 # The install-xulrunner target arranges to get xulrunner downloaded and sets up
 # some commands for invoking it. But it is platform dependent
 XULRUNNER_SDK_URL=http://ftp.mozilla.org/pub/mozilla.org/xulrunner/nightly/2012/07/2012-07-17-03-05-55-mozilla-central/xulrunner-17.0a1.en-US.
@@ -74,8 +72,8 @@ endif
 
 install-xulrunner-sdk:
 ifeq ($(findstring MINGW32,$(SYS)), MINGW32)
-	test -d xulrunner-sdk || ($(DOWNLOAD_CMD) $(XULRUNNER_SDK_DOWNLOAD) && unzip xulrunner*.zip && rm xulrunner*.zip)
+	@test -d xulrunner-sdk || ($(DOWNLOAD_CMD) $(XULRUNNER_SDK_DOWNLOAD) && unzip xulrunner*.zip && rm xulrunner*.zip)
 else
-	test -d xulrunner-sdk || ($(DOWNLOAD_CMD) $(XULRUNNER_SDK_DOWNLOAD) && tar xjf xulrunner*.tar.bz2 && rm xulrunner*.tar.bz2)
+	@test -d xulrunner-sdk || ($(DOWNLOAD_CMD) $(XULRUNNER_SDK_DOWNLOAD) && tar xjf xulrunner*.tar.bz2 && rm xulrunner*.tar.bz2)
 endif
 
