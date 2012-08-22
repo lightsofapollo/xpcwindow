@@ -1,3 +1,6 @@
+# 0.4.2
+  - Silent installer
+
 # 0.4.0
   - built in mkdirp module
   - fs.stat, fs.mkdirSync, fs.rmdirSync
