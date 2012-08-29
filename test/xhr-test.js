@@ -3,7 +3,6 @@ describe('xhr', function() {
   it('should be able to load file://', function() {
     var path = 'file://' + __dirname + '/fixtures/file.js';
     var xhr = new XMLHttpRequest();
-
     xhr.open('GET', path, true);
 
     xhr.onreadystatechange = function() {
